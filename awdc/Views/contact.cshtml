@@ -1,0 +1,36 @@
+﻿@inherits UmbracoViewPage<Contact>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+    Layout = "master.cshtml";
+
+}
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+
+<style>
+    img {
+        width: 64px;
+    }
+</style>
+<section class="section">
+    <div class="container">
+        
+         <div>
+            <!-- Column grid layout  -->
+            <section class="mb-5">
+               
+            </section>
+        </div>
+
+        <div class="row d-flex justify-content-center pt-5">
+        
+            <div class="col-md-6">
+                
+            </div>
+
+        </div>
+        
+        @Html.Action("Index", "ContactFormSurface")
+        
+    </div>
+</section>

@@ -1,0 +1,23 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Blogpost>
+@using ContentModels = Umbraco.Web.PublishedModels;
+    @{
+    Layout = "master.cshtml";
+}
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+
+<section class="section">
+    <div class="container">
+        <article>
+            <div class="blogpost-meta">
+                
+                <span class="blogpost-cat">
+                   
+                </span>
+            </div>
+            
+            @Html.GetGridHtml(Model, "bodyText", "bootstrap3-fluid")
+            
+        </article>
+    </div>
+</section>

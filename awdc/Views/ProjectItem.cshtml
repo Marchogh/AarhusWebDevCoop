@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ProjectItem>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "master.cshtml";
+}
+
+
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section class="section">
+    <div class="container">
+        <article>
+            <div class="blogpost-meta">
+               
+                <span class="blogpost-cat">
+                   
+                </span>
+            </div>
+            <h3>@Model.Value("projectTitle")</h3>
+           
+            <p>
+                @Model.Value("projectDescription")
+            </p>
+           
+        </article>
+    </div>
+</section>

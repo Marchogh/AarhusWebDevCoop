@@ -1,0 +1,30 @@
+﻿@using ContentModels = Umbraco.Web.PublishedModels;
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Blog>
+@using Umbraco.Web;
+@{
+    Layout = "master.cshtml";
+}
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section class="section home-project">
+
+    <div class="container">
+      
+    
+@{
+	var selection = Umbraco.Content(Guid.Parse("1d770f10-d1ca-4a26-9d68-071e2c9f7ac1"))
+    .ChildrenOfType("blogpost")
+    .Where(x => x.IsVisible());
+}
+<ul class="project-list">
+	@foreach (var item in selection)
+	{
+		<li class="project-item">
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
+
+
+
+</section>

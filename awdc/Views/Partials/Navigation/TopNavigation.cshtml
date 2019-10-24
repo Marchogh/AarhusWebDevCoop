@@ -1,0 +1,47 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@using Umbraco.Web;
+@{
+    // Getting the top most ancestor in a template
+    var site = Model.Root();
+    // Gives editors the option to 'hide' certain pages from appearing in the section navigation. (hence the unusual umbracoNaviHide property alias!)
+    var selection = site.Children.Where(x => x.IsVisible());
+}
+    <!-- Bootstrap classes to style the navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <!-- Foreach loop to get every chilrdren in root where is not equal null  -->
+            @foreach (var item in selection)
+             {
+                var nullCheck = item.Children;
+                if (item.Children.Any() && nullCheck != null)
+                {
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" href="@item.Url" data-hover="dropdown"
+                           aria-haspopup="true" aria-expanded="false">@item.Name</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <!-- Foreach loop to get every chilrdren in my main navigation and display their children -->
+                            @foreach (var subClass in item.Children)
+                            {
+                                if (Umbraco.MemberHasAccess(subClass.Path))
+                                {
+                                    <a class="dropdown-item" href="@subClass.Url">@subClass.Name</a>
+                                }
+                            }
+                        </div>
+                    </li>
+                }
+                else
+                {
+                <li class="nav-item active">
+                <!-- Gets all of the ancestors this page has in the tree -->
+                    <a class="nav-link @(item.IsAncestorOrSelf(Model) ? "nav-link--active" : null)" href="@item.Url">@item.Name<span class="sr-only">(current)</span></a>
+                </li>
+                }
+             }
+        </ul>
+    </div>
+</nav>

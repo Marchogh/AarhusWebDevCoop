@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.ProjectsOverview>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@{
+	Layout = "master.cshtml";
+}
+
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section class="section home-project">
+
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("2c1d1218-9d4f-41d7-86c6-cbd56956b3f6"))
+    .ChildrenOfType("projectItem")
+    .Where(x => x.IsVisible());
+}
+<ul class="project-list">
+	@foreach (var item in selection)
+	{
+		<li class="project-item">
+			<a href="@item.Url">@item.Name</a>
+		</li>
+	}
+</ul>
+
+
+
+</section>

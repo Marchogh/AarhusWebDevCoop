@@ -1,0 +1,28 @@
+﻿@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+@{
+	var selection = Umbraco.Content(Guid.Parse("2c1d1218-9d4f-41d7-86c6-cbd56956b3f6"))
+    .ChildrenOfType("projectItem")
+    // Vi kan ikke vise projekter med Status "Completed" og kan ikke se hvor fejlen er. 
+   // .Where(x => x.HasValue("projectStatus") && x.GetProperty("projectStatus").Value<string>() == "Completed")
+    .Where(x => x.IsVisible()).Take(3)
+    .OrderByDescending(x => x.CreateDate);
+}
+<ul class="project-list">
+        @foreach (var item in selection)
+        {
+        <li class="project-item">
+            <a href="@item.Url">@item.Name</a>
+        </li>
+        }
+    </ul>
+
+
+
+
+
+
+
+
+

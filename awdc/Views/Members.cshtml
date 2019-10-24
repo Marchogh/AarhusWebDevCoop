@@ -1,0 +1,53 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContentModels.Members>
+@using ContentModels = Umbraco.Web.PublishedModels;
+@using Umbraco.Core.Services;
+@{
+	Layout = "Master.cshtml";
+	IMemberService memberService = Services.MemberService;
+    var members = memberService.GetMembersByGroup("Active");
+}
+
+<style>
+    p {
+        margin-bottom: 5px !important;
+    }
+    
+    .skill-list {
+        margin-bottom: 50px;
+        border: 1px solid black;
+        padding: 10px;
+    }
+    
+    .section {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+
+</style>
+
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section id="members" class="section">
+    
+    @foreach (var member in members) {
+    <p> @member.Name  </p>
+    <p>Adress: @member.GetValue("Address")</p>  
+    <p>City: @member.GetValue("zip") @member.GetValue("city")</p>
+    <p>Email: @member.Email</p>     
+        
+    <p class="skills-para">Skills:</p>
+        if (member.GetValue("skills") != null) {
+        string[] skills = member.GetValue("skills").ToString().Split(',');
+        string skillString = string.Join(", ", skills.Select(item => item)).Replace("\"", "").TrimStart('[').TrimEnd(']');
+        <div class="skill-list">@skillString</div>
+        <hr>
+    }
+}
+
+
+</section>          
+
+
